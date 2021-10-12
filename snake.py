@@ -54,6 +54,12 @@ class Goal():
         y = random.randint(0, (WIN_HEIGHT / PIXEL_SIZE)) * PIXEL_SIZE
         return [x, y]
 
+    def get_location(self):
+        return self.location
+
+    def set_location(self, new_pos):
+        self.location = new_pos
+
     def draw(self, window):
         goal_pixel = pygame.Rect(self.location[0], self.location[1], PIXEL_SIZE, PIXEL_SIZE)
         pygame.draw.rect(window, GOAL_COLOUR, goal_pixel)
@@ -102,18 +108,24 @@ def main():
 
     draw_background(window)
     snake = Snake(400, 400)
+    goal = Goal()
 
     # Game loop
     running = True
     while running:
         clock.tick(10)
         
-    
         input_listener(snake)
         snake.move()
         
+        if snake.get_head() == goal.get_location():
+            snake.grow()
+            goal.set_location(goal.get_random_location())
+
+        # Draw elements
         draw_background(window)
         snake.draw(window)
+        goal.draw(window)
 
         pygame.display.update()
         
