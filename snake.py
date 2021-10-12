@@ -35,6 +35,16 @@ class Snake():
     def move(self):
         next_pos = self.get_next_position()
 
+        # Check if next position is out of bounds, and go to opposite side if it is
+        for i in range(2):
+            max_value = WIN_WIDTH if i == 0 else WIN_HEIGHT
+
+            if next_pos[i] < 0:
+                next_pos[i] = max_value - PIXEL_SIZE
+            elif next_pos[i] > max_value:
+                next_pos[i] = 0
+
+
         if len(self.body) > 1 and next_pos in self.body:
             self.reset()
 
