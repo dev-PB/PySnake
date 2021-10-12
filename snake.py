@@ -26,6 +26,9 @@ class Snake():
             self.body.insert(0, next_pos)
             self.body.pop()
 
+    def set_direction(self, new_direction):
+        self.direction = new_direction
+
     def draw(self, window):
         for body_part in self.body:
             snake_pixel = pygame.Rect(body_part[0], body_part[1], PIXEL_SIZE, PIXEL_SIZE)
