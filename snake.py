@@ -1,4 +1,5 @@
 import pygame
+import sys
 
 WIN_WIDTH = 800
 WIN_HEIGHT = 800
@@ -31,7 +32,20 @@ def main():
     pygame.display.set_caption("Snake")
 
     draw_background(window)
+
+    # Game loop
+    running = True
+    while (running):
+        clock.tick(20)
+        pygame.display.update()
     
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
+                sys.exit()
+
 
 if __name__ == "__main__":
     main()
+    
