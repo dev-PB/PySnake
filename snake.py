@@ -15,7 +15,7 @@ def draw_background(window):
             tile = pygame.Rect(x, y, PIXEL_SIZE, PIXEL_SIZE)
 
             # Alternate the colour of the background tiles
-            if ((x + y) / 20) % 2 == 0:
+            if ((x + y) / PIXEL_SIZE) % 2 == 0:
                 colour = BG_COLOUR
             else:
                 colour = BG_COLOUR_ALT
