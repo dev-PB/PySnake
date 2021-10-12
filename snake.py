@@ -15,9 +15,12 @@ class Snake():
         self.body = [[x, y] ]
         self.direction = {"x": -1, "y": 0}
 
-    def move(self):
+    def get_next_position(self):
         head = self.body[0]
-        next_pos = [ (head[0] + (self.direction["x"] * PIXEL_SIZE)), (head[1] + (self.direction["y"] * PIXEL_SIZE)) ]
+        return [ (head[0] + (self.direction["x"] * PIXEL_SIZE)), (head[1] + (self.direction["y"] * PIXEL_SIZE)) ]
+
+    def move(self):
+        next_pos = self.get_next_position()
 
         if len(self.body) > 1 and next_pos in self.body:
             pass
@@ -25,6 +28,9 @@ class Snake():
         else:
             self.body.insert(0, next_pos)
             self.body.pop()
+    
+    def grow(self):
+        self.body.insert(0,  self.get_next_position())
 
     def set_direction(self, new_direction):
         self.direction = new_direction
@@ -67,7 +73,6 @@ def input_listener(player):
 
             elif event.key == pygame.K_LEFT:
                 player.set_direction({"x": -1, "y": 0})
-
             
 
 def main():
