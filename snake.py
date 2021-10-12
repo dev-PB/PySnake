@@ -28,9 +28,12 @@ class Snake():
     def get_head(self):
         return self.body[0]
 
-    def get_next_position(self):
+    def get_next_position(self, travel_direction = None):
+        if travel_direction is None:
+            travel_direction = self.direction
+
         head = self.get_head()
-        return [ (head[0] + (self.direction["x"] * PIXEL_SIZE)), (head[1] + (self.direction["y"] * PIXEL_SIZE)) ]
+        return [ (head[0] + (travel_direction["x"] * PIXEL_SIZE)), (head[1] + (travel_direction["y"] * PIXEL_SIZE)) ]
 
     def move(self):
         next_pos = self.get_next_position()
@@ -56,7 +59,11 @@ class Snake():
         self.body.insert(0,  self.get_next_position())
 
     def set_direction(self, new_direction):
-        self.direction = new_direction
+        
+        if len(self.body) > 1 and self.get_next_position(new_direction) == self.body[1]:
+            pass
+        else:
+            self.direction = new_direction
 
     def reset(self):
         head = self.get_head()
@@ -77,7 +84,6 @@ class Goal():
 
     def set_location(self, new_pos):
         self.location = new_pos
-        print(new_pos)
 
     def draw(self, window):
         goal_pixel = pygame.Rect(self.location[0], self.location[1], PIXEL_SIZE, PIXEL_SIZE)
