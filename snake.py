@@ -22,7 +22,7 @@ def get_random_location():
 class Snake():
     def __init__(self, x, y):
         self.length = 1
-        self.body = [[x, y] ]
+        self.body = [get_random_location()]
         self.direction = {"x": -1, "y": 0}
 
     def get_head(self):
