@@ -7,6 +7,30 @@ PIXEL_SIZE = 20
 
 BG_COLOUR = (186, 222, 252)
 BG_COLOUR_ALT = (98, 181, 248)
+SNAKE_COLOUR = (50, 168, 82)
+
+class Snake():
+    def __init__(self, x, y):
+        self.length = 1
+        self.body = [[x, y] ]
+        self.direction = {"x": -1, "y": 0}
+
+    def move(self):
+        head = self.body[0]
+        next_pos = [ (head[0] + (self.direction["x"] * PIXEL_SIZE)), (head[1] + (self.direction["y"] * PIXEL_SIZE)) ]
+
+        if next_pos in self.body:
+            pass
+
+        else:
+            self.body.insert(0, next_pos)
+            self.body.pop()
+
+    def draw(self, window):
+        for body_part in self.body:
+            snake_pixel = pygame.Rect(body_part[0], body_part[1], PIXEL_SIZE, PIXEL_SIZE)
+            pygame.draw.rect(window, SNAKE_COLOUR, snake_pixel)
+
 
 
 def draw_background(window):
@@ -35,7 +59,7 @@ def main():
 
     # Game loop
     running = True
-    while (running):
+    while running:
         clock.tick(20)
         pygame.display.update()
     
