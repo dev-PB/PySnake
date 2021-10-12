@@ -17,8 +17,11 @@ class Snake():
         self.body = [[x, y] ]
         self.direction = {"x": -1, "y": 0}
 
+    def get_head(self):
+        return self.body[0]
+
     def get_next_position(self):
-        head = self.body[0]
+        head = self.get_head()
         return [ (head[0] + (self.direction["x"] * PIXEL_SIZE)), (head[1] + (self.direction["y"] * PIXEL_SIZE)) ]
 
     def move(self):
