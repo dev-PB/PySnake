@@ -4,7 +4,7 @@ import random
 
 WIN_WIDTH = 800
 WIN_HEIGHT = 800
-PIXEL_SIZE = 20
+PIXEL_SIZE = 40
 
 BG_COLOUR = (186, 222, 252)
 BG_COLOUR_ALT = (98, 181, 248)
@@ -14,8 +14,8 @@ GOAL_COLOUR = (240, 97, 36)
 
 
 def get_random_location():
-    x = random.randint(0, (WIN_WIDTH / PIXEL_SIZE)) * PIXEL_SIZE
-    y = random.randint(0, (WIN_HEIGHT / PIXEL_SIZE)) * PIXEL_SIZE
+    x = random.randint(0, ((WIN_WIDTH - PIXEL_SIZE) / PIXEL_SIZE)) * PIXEL_SIZE
+    y = random.randint(0, ((WIN_HEIGHT - PIXEL_SIZE) / PIXEL_SIZE)) * PIXEL_SIZE
     return [x, y]
 
 
@@ -77,6 +77,7 @@ class Goal():
 
     def set_location(self, new_pos):
         self.location = new_pos
+        print(new_pos)
 
     def draw(self, window):
         goal_pixel = pygame.Rect(self.location[0], self.location[1], PIXEL_SIZE, PIXEL_SIZE)
