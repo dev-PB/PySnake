@@ -11,6 +11,14 @@ BG_COLOUR_ALT = (98, 181, 248)
 SNAKE_COLOUR = (50, 168, 82)
 GOAL_COLOUR = (240, 97, 36)
 
+
+
+def get_random_location():
+        x = random.randint(0, (WIN_WIDTH / PIXEL_SIZE)) * PIXEL_SIZE
+        y = random.randint(0, (WIN_HEIGHT / PIXEL_SIZE)) * PIXEL_SIZE
+        return [x, y]
+
+
 class Snake():
     def __init__(self, x, y):
         self.length = 1
@@ -47,12 +55,7 @@ class Snake():
 
 class Goal():
     def __init__(self):
-        self.location = self.get_random_location()
-
-    def get_random_location(self):
-        x = random.randint(0, (WIN_WIDTH / PIXEL_SIZE)) * PIXEL_SIZE
-        y = random.randint(0, (WIN_HEIGHT / PIXEL_SIZE)) * PIXEL_SIZE
-        return [x, y]
+        self.location = get_random_location()
 
     def get_location(self):
         return self.location
@@ -120,7 +123,7 @@ def main():
         
         if snake.get_head() == goal.get_location():
             snake.grow()
-            goal.set_location(goal.get_random_location())
+            goal.set_location(get_random_location())
 
         # Draw elements
         draw_background(window)
