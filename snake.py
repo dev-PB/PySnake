@@ -4,7 +4,7 @@ import random
 
 WIN_WIDTH = 800
 WIN_HEIGHT = 800
-PIXEL_SIZE = 20
+PIXEL_SIZE = 40
 
 BG_COLOUR = (186, 222, 252)
 BG_COLOUR_ALT = (98, 181, 248)
@@ -37,7 +37,7 @@ class Snake():
 
     def move(self):
         next_pos = self.get_next_position()
-        print(next_pos)
+        
         # Check if next position is out of bounds, and go to opposite side if it is
         for i in range(2):
             max_value = WIN_WIDTH if i == 0 else WIN_HEIGHT
