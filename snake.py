@@ -14,9 +14,9 @@ GOAL_COLOUR = (240, 97, 36)
 
 
 def get_random_location():
-        x = random.randint(0, (WIN_WIDTH / PIXEL_SIZE)) * PIXEL_SIZE
-        y = random.randint(0, (WIN_HEIGHT / PIXEL_SIZE)) * PIXEL_SIZE
-        return [x, y]
+    x = random.randint(0, (WIN_WIDTH / PIXEL_SIZE)) * PIXEL_SIZE
+    y = random.randint(0, (WIN_HEIGHT / PIXEL_SIZE)) * PIXEL_SIZE
+    return [x, y]
 
 
 class Snake():
@@ -36,7 +36,7 @@ class Snake():
         next_pos = self.get_next_position()
 
         if len(self.body) > 1 and next_pos in self.body:
-            pass
+            self.reset()
 
         else:
             self.body.insert(0, next_pos)
@@ -47,6 +47,11 @@ class Snake():
 
     def set_direction(self, new_direction):
         self.direction = new_direction
+
+    def reset(self):
+        head = self.get_head()
+        self.body.clear()
+        self.body.insert(0, head)
 
     def draw(self, window):
         for body_part in self.body:
@@ -110,7 +115,7 @@ def main():
     pygame.display.set_caption("Snake")
 
     draw_background(window)
-    snake = Snake(400, 400)
+    snake = Snake()
     goal = Goal()
 
     # Game loop
