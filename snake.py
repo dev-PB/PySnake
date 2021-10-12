@@ -1,5 +1,6 @@
 import pygame
 import sys
+import random
 
 WIN_WIDTH = 800
 WIN_HEIGHT = 800
@@ -8,6 +9,7 @@ PIXEL_SIZE = 20
 BG_COLOUR = (186, 222, 252)
 BG_COLOUR_ALT = (98, 181, 248)
 SNAKE_COLOUR = (50, 168, 82)
+GOAL_COLOUR = (240, 97, 36)
 
 class Snake():
     def __init__(self, x, y):
@@ -39,6 +41,19 @@ class Snake():
         for body_part in self.body:
             snake_pixel = pygame.Rect(body_part[0], body_part[1], PIXEL_SIZE, PIXEL_SIZE)
             pygame.draw.rect(window, SNAKE_COLOUR, snake_pixel)
+
+class Goal():
+    def __init__(self):
+        self.location = self.get_random_location()
+
+    def get_random_location(self):
+        x = random.randint(0, (WIN_WIDTH / PIXEL_SIZE)) * PIXEL_SIZE
+        y = random.randint(0, (WIN_HEIGHT / PIXEL_SIZE)) * PIXEL_SIZE
+        return [x, y]
+
+    def draw(self, window):
+        goal_pixel = pygame.Rect(self.location[0], self.location[1], PIXEL_SIZE, PIXEL_SIZE)
+        pygame.draw.rect(window, GOAL_COLOUR, goal_pixel)
 
 
 
