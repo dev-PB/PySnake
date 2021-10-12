@@ -19,7 +19,7 @@ class Snake():
         head = self.body[0]
         next_pos = [ (head[0] + (self.direction["x"] * PIXEL_SIZE)), (head[1] + (self.direction["y"] * PIXEL_SIZE)) ]
 
-        if next_pos in self.body:
+        if len(self.body) > 1 and next_pos in self.body:
             pass
 
         else:
@@ -48,7 +48,26 @@ def draw_background(window):
                 colour = BG_COLOUR_ALT
 
             pygame.draw.rect(window, colour, tile)
-            
+
+def input_listener(player):
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                player.set_direction({"x": 0, "y": -1})
+
+            elif event.key == pygame.K_RIGHT:
+                player.set_direction({"x": 1, "y": 0})
+
+            elif event.key == pygame.K_DOWN:
+                player.set_direction({"x": 0, "y": 1})
+
+            elif event.key == pygame.K_LEFT:
+                player.set_direction({"x": -1, "y": 0})
+
             
 
 def main():
@@ -59,19 +78,22 @@ def main():
     pygame.display.set_caption("Snake")
 
     draw_background(window)
+    snake = Snake(400, 400)
 
     # Game loop
     running = True
     while running:
-        clock.tick(20)
-        pygame.display.update()
+        clock.tick(10)
+        
     
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-                pygame.quit()
-                sys.exit()
+        input_listener(snake)
+        snake.move()
+        
+        draw_background(window)
+        snake.draw(window)
 
+        pygame.display.update()
+        
 
 if __name__ == "__main__":
     main()
