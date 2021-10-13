@@ -24,6 +24,7 @@ class Snake():
         self.length = 1
         self.body = [get_random_location()]
         self.direction = {"x": -1, "y": 0}
+        self.paused = False
 
     def get_head(self):
         return self.body[0]
@@ -36,34 +37,35 @@ class Snake():
         return [ (head[0] + (travel_direction["x"] * PIXEL_SIZE)), (head[1] + (travel_direction["y"] * PIXEL_SIZE)) ]
 
     def move(self):
-        next_pos = self.get_next_position()
-        
-        # Check if next position is out of bounds, and go to opposite side if it is
-        for i in range(2):
-            max_value = WIN_WIDTH if i == 0 else WIN_HEIGHT
+        if not self.paused:
+            next_pos = self.get_next_position()
+            
+            # Check if next position is out of bounds, and go to opposite side if it is
+            for i in range(2):
+                max_value = WIN_WIDTH if i == 0 else WIN_HEIGHT
 
-            if next_pos[i] < 0:
-                next_pos[i] = max_value - PIXEL_SIZE
-            elif next_pos[i] > max_value - PIXEL_SIZE:
-                next_pos[i] = 0
+                if next_pos[i] < 0:
+                    next_pos[i] = max_value - PIXEL_SIZE
+                elif next_pos[i] > max_value - PIXEL_SIZE:
+                    next_pos[i] = 0
 
 
-        if len(self.body) > 1 and next_pos in self.body:
-            self.reset()
+            if len(self.body) > 1 and next_pos in self.body:
+                self.reset()
 
-        else:
-            self.body.insert(0, next_pos)
-            self.body.pop()
+            else:
+                self.body.insert(0, next_pos)
+                self.body.pop()
     
     def grow(self):
         self.body.insert(0,  self.get_next_position())
 
     def set_direction(self, new_direction):
-        
-        if len(self.body) > 1 and self.get_next_position(new_direction) == self.body[1]:
-            pass
-        else:
-            self.direction = new_direction
+        if not self.paused:
+            if len(self.body) > 1 and self.get_next_position(new_direction) == self.body[1]:
+                pass
+            else:
+                self.direction = new_direction
 
     def reset(self):
         head = self.get_head()
@@ -74,6 +76,12 @@ class Snake():
         for body_part in self.body:
             snake_pixel = pygame.Rect(body_part[0], body_part[1], PIXEL_SIZE, PIXEL_SIZE)
             pygame.draw.rect(window, SNAKE_COLOUR, snake_pixel)
+
+    def toggle_paused(self):
+        if self.paused:
+            self.paused = False
+        else:
+            self.paused = True
 
 class Goal():
     def __init__(self):
@@ -122,6 +130,9 @@ def input_listener(player):
 
             elif event.key == pygame.K_LEFT:
                 player.set_direction({"x": -1, "y": 0})
+
+            elif event.key == pygame.K_SPACE:
+                player.toggle_paused()
             
 
 def main():
