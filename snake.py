@@ -186,7 +186,14 @@ def main():
         
         if snake.get_head() == goal.get_location():
             snake.grow()
-            goal.set_location(get_random_location())
+            
+            while True:
+                new_goal_loc = get_random_location()
+
+                if new_goal_loc is not goal.get_location():
+                    break
+
+            goal.set_location(new_goal_loc)
 
         # Draw elements
         draw_background(window)
