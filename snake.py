@@ -1,6 +1,8 @@
 import pygame
 import sys
 import random
+import tkinter as tk
+from tkinter import ttk
 
 WIN_WIDTH = 800
 WIN_HEIGHT = 800
@@ -11,6 +13,18 @@ BG_COLOUR_ALT = (98, 181, 248)
 SNAKE_COLOUR = (50, 168, 82)
 GOAL_COLOUR = (240, 97, 36)
 
+APP_INFO = """
+Made by Ryan W.
+
+View the source code here:
+https://github.com/onlinePB/PySnake
+
+Controls:
+Use the arrow keys to move
+Use the space bar to pause the game
+
+To begin, press 'Start' below.
+"""
 
 
 def get_random_location():
@@ -134,8 +148,24 @@ def input_listener(player):
             elif event.key == pygame.K_SPACE:
                 player.toggle_paused()
             
+def show_app_info():
+    info_window = tk.Tk()
+    info_window.title("About")
+    info_window.configure(bg="white")
+
+    description = tk.Label(info_window, text=APP_INFO)
+    description.pack(side="top", fill="x", pady=5, padx=10)
+    description.configure(bg="white")
+    
+    button = ttk.Button(info_window, text="Start", command=info_window.destroy)
+    button.pack()
+
+    info_window.mainloop()
 
 def main():
+
+    show_app_info()
+
     pygame.init()
 
     clock = pygame.time.Clock()
