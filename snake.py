@@ -39,6 +39,7 @@ class Snake():
         self.body = [get_random_location()]
         self.direction = {"x": -1, "y": 0}
         self.paused = False
+        self.grow = False
 
     def get_head(self):
         return self.body[0]
@@ -69,10 +70,17 @@ class Snake():
 
             else:
                 self.body.insert(0, next_pos)
-                self.body.pop()
+
+                if self.grow:
+                    self.grow = False
+                else:
+                    self.body.pop()
+                    
     
-    def grow(self):
-        self.body.insert(0,  self.get_next_position())
+    def toggle_grow(self):
+        #self.body.insert(0,  self.get_next_position())
+        if not self.grow:
+            self.grow = True
 
     def set_direction(self, new_direction):
         if not self.paused:
@@ -185,7 +193,7 @@ def main():
         snake.move()
         
         if snake.get_head() == goal.get_location():
-            snake.grow()
+            snake.toggle_grow()
             
             while True:
                 new_goal_loc = get_random_location()
