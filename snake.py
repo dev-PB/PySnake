@@ -4,6 +4,8 @@ import random
 import tkinter as tk
 from tkinter import ttk
 
+FPS_LIMIT = 11
+
 WIN_WIDTH = 800
 WIN_HEIGHT = 800
 PIXEL_SIZE = 40
@@ -78,7 +80,6 @@ class Snake():
                     
     
     def toggle_grow(self):
-        #self.body.insert(0,  self.get_next_position())
         if not self.grow:
             self.grow = True
 
@@ -187,7 +188,7 @@ def main():
     # Game loop
     running = True
     while running:
-        clock.tick(10)
+        clock.tick(FPS_LIMIT)
         
         input_listener(snake)
         snake.move()
